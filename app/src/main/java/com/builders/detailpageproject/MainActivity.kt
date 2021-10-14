@@ -30,9 +30,9 @@ class MainActivity : AppCompatActivity() {
             AppBarStateChangeListener() {
             override fun onStateChanged(appBarLayout: AppBarLayout?, state: State?) {
                 if (state == State.EXPANDED) {
-                    mainActivityBinding.extendedBtn.visibility = View.VISIBLE
+                    mainActivityBinding.overlayCard.visibility = View.VISIBLE
                 } else if (state == State.COLLAPSED) {
-                    mainActivityBinding.extendedBtn.visibility = View.GONE
+                    mainActivityBinding.overlayCard.visibility = View.GONE
                 }
             }
         })
