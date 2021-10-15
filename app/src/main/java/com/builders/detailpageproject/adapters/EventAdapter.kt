@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.builders.detailpageproject.OnEventItemClickListener
 import com.builders.detailpageproject.R
 import com.builders.detailpageproject.model.DummyData
 
-class EventAdapter(val context: Context) : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
+class EventAdapter(val context: Context , val onEventItemClickListener: OnEventItemClickListener) : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
 
     private lateinit var data: MutableList<DummyData>
 
@@ -28,6 +29,9 @@ class EventAdapter(val context: Context) : RecyclerView.Adapter<EventAdapter.Vie
         val singleItem = data[position]
         holder.eventDateTextView.text = singleItem.eventDate
         holder.eventTitleTextView.text = singleItem.eventTitle
+        holder.itemView.setOnClickListener {
+            onEventItemClickListener.onItemClick(singleItem)
+        }
     }
 
     override fun getItemCount(): Int {

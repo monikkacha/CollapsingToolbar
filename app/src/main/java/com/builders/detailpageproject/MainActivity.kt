@@ -11,6 +11,7 @@ import com.builders.detailpageproject.databinding.ActivityMainBinding
 import com.builders.detailpageproject.model.ClubHobbies
 import com.google.android.material.appbar.AppBarLayout
 import android.content.res.ColorStateList
+import android.util.Log
 import com.builders.detailpageproject.adapters.EventAdapter
 import com.builders.detailpageproject.model.DummyData
 
@@ -18,7 +19,7 @@ enum class Event {
     UPCOMING, PAST
 }
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener , OnEventItemClickListener{
 
     private var TAG = "MainActivity"
     private lateinit var mainActivityBinding: ActivityMainBinding
@@ -60,22 +61,23 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         )
 
         pastEventsList = mutableListOf()
-        pastEventsList.add(
-            DummyData(
-                "",
-                "1st may-sat-2:00 PM",
-                "A Virtual Evening Of Smooth  Jazz"
-            )
-        )
+//        pastEventsList.add(
+//            DummyData(
+//                "",
+//                "1st may-sat-2:00 PM",
+//                "A Virtual Evening Of Smooth  Jazz"
+//            )
+//        )
 
         mainActivityBinding.item1.setOnClickListener(this);
         mainActivityBinding.item2.setOnClickListener(this);
         def = mainActivityBinding.item2.textColors
 
         // setting adapter
-        eventAdapter = EventAdapter(this)
         mainActivityBinding.eventsRecyclerView.layoutManager = LinearLayoutManager(this)
+        eventAdapter = EventAdapter(this , this)
         mainActivityBinding.eventsRecyclerView.setHasFixedSize(true)
+        mainActivityBinding.eventsRecyclerView.adapter = eventAdapter
         loadData(Event.UPCOMING)
     }
 
@@ -149,6 +151,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
         if (data.isEmpty()) {
+            var text = if (Event.UPCOMING == event) "No Upcoming Events" else "No Past Events"
+            mainActivityBinding.noDataText.text = text
             mainActivityBinding.noDataLl.visibility = View.VISIBLE
             mainActivityBinding.eventsRecyclerView.visibility = View.GONE
         } else {
@@ -156,5 +160,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             mainActivityBinding.noDataLl.visibility = View.GONE
             mainActivityBinding.eventsRecyclerView.visibility = View.VISIBLE
         }
+    }
+
+    override fun onItemClick(data: DummyData) {
+        Log.e(TAG, "onItemClick: ")
     }
 }
