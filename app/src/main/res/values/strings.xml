@@ -10,4 +10,7 @@
     <string name="group_info">Enjoy your favorite music and a lovely your friends and family and have a great time. Music from local music bands will be available for purchase. Read More...</string>
     <string name="upcoming_event">upcoming</string>
     <string name="past_event">past eventes</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_upcoming">No Upcoming Events</string>
 </resources>
